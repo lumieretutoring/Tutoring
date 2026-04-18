@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lumière — Private Tutoring</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --gold:#C9A84C;--gold-light:#E8D5A3;--gold-dark:#8B6914;
+  --cream:#FAF7F2;--cream-dark:#F0EBE1;
+  --charcoal:#1A1814;--charcoal-mid:#2E2B26;--charcoal-light:#4A4540;
+  --warm-gray:#8C8680;--white:#FFFFFF;
+}
+body{font-family:'Montserrat',sans-serif;background:var(--cream);color:var(--charcoal);line-height:1.6;overflow-x:hidden;}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:1.1rem 3.5rem;background:rgba(250,247,242,0.96);backdrop-filter:blur(8px);border-bottom:1px solid rgba(201,168,76,0.2);}
+.nav-logo{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:400;letter-spacing:0.1em;color:var(--charcoal);text-decoration:none;}
+.nav-logo span{color:var(--gold);}
+.nav-links{display:flex;gap:1.75rem;align-items:center;}
+.nav-links a{font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--charcoal-light);text-decoration:none;transition:color 0.2s;cursor:pointer;}
+.nav-links a:hover{color:var(--gold);}
+.nav-cta{font-size:0.62rem;letter-spacing:0.18em;text-transform:uppercase;padding:0.55rem 1.4rem;background:var(--charcoal);color:var(--gold-light);border:none;cursor:pointer;transition:all 0.25s;font-family:'Montserrat',sans-serif;}
+.nav-cta:hover{background:var(--gold);color:var(--charcoal);}
+.cart-btn{position:relative;padding:0.4rem 0.6rem;background:none;border:none;cursor:pointer;color:var(--charcoal-light);font-family:'Montserrat',sans-serif;font-size:0.65rem;letter-spacing:0.1em;display:flex;align-items:center;gap:0.4rem;transition:color 0.2s;}
+.cart-btn:hover{color:var(--gold);}
+.cart-count{background:var(--gold);color:var(--charcoal);font-size:0.55rem;font-weight:700;width:16px;height:16px;display:flex;align-items:center;justify-content:center;}
+.hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;padding-top:4.5rem;}
+.hero-left{display:flex;flex-direction:column;justify-content:center;padding:5rem 3rem 5rem 3.5rem;position:relative;}
+.hero-left::before{content:'';position:absolute;top:7.5rem;left:3.5rem;width:36px;height:1px;background:var(--gold);}
+.hero-eyebrow{font-size:0.62rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold);margin-bottom:1.25rem;padding-left:3rem;}
+.hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2.6rem,4.5vw,4rem);font-weight:300;line-height:1.1;color:var(--charcoal);margin-bottom:1.25rem;}
+.hero-title em{font-style:italic;color:var(--gold-dark);}
+.hero-sub{font-size:0.76rem;color:var(--warm-gray);letter-spacing:0.04em;line-height:1.9;max-width:360px;margin-bottom:2.5rem;}
+.hero-actions{display:flex;gap:1rem;align-items:center;}
+.btn-primary{padding:0.8rem 2.2rem;background:var(--charcoal);color:var(--gold-light);border:none;cursor:pointer;font-family:'Montserrat',sans-serif;font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;transition:all 0.25s;}
+.btn-primary:hover{background:var(--gold);color:var(--charcoal);}
+.btn-ghost{padding:0.8rem 2.2rem;background:transparent;color:var(--charcoal);border:1px solid rgba(26,24,20,0.25);cursor:pointer;font-family:'Montserrat',sans-serif;font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;transition:all 0.25s;}
+.btn-ghost:hover{border-color:var(--gold);color:var(--gold-dark);}
+.hero-stats{display:flex;gap:2.5rem;margin-top:3rem;padding-top:1.75rem;border-top:1px solid rgba(201,168,76,0.2);}
+.stat-num{font-family:'Cormorant Garamond',serif;font-size:1.85rem;font-weight:400;color:var(--charcoal);line-height:1;}
+.stat-label{font-size:0.58rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--warm-gray);margin-top:0.25rem;}
+.hero-right{background:var(--charcoal);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;}
+.hero-visual{width:100%;height:100%;background:var(--charcoal);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2rem;padding:3rem;}
+.tutor-ring{width:140px;height:140px;border:1px solid rgba(201,168,76,0.3);display:flex;align-items:center;justify-content:center;position:relative;}
+.tutor-ring::before{content:'';position:absolute;inset:-12px;border:1px solid rgba(201,168,76,0.12);}
+.tutor-initials{font-family:'Cormorant Garamond',serif;font-size:2.5rem;font-weight:300;color:var(--gold);}
+.tutor-title-block{text-align:center;}
+.tutor-name-hero{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:300;color:var(--cream);margin-bottom:0.3rem;}
+.tutor-creds-hero{font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(201,168,76,0.6);}
+.hero-divider{width:40px;height:1px;background:rgba(201,168,76,0.25);}
+.hero-tags{display:flex;flex-wrap:wrap;gap:0.5rem;justify-content:center;max-width:260px;}
+.hero-tag{font-size:0.58rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.28rem 0.7rem;border:1px solid rgba(201,168,76,0.2);color:rgba(201,168,76,0.6);}
+section{padding:5.5rem 3.5rem;}
+.section-label{font-size:0.6rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold);display:flex;align-items:center;gap:1rem;margin-bottom:0.75rem;}
+.section-label::before{content:'';width:28px;height:1px;background:var(--gold);}
+.section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,3.5vw,2.75rem);font-weight:300;color:var(--charcoal);line-height:1.15;margin-bottom:0.65rem;}
+.section-sub{font-size:0.75rem;color:var(--warm-gray);letter-spacing:0.04em;line-height:1.9;max-width:480px;}
+.about{background:var(--white);}
+.about-inner{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;}
+.about-img{background:var(--charcoal);aspect-ratio:3/4;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.5rem;padding:2.5rem;}
+.about-avatar-lg{width:100px;height:100px;border:1px solid rgba(201,168,76,0.3);display:flex;align-items:center;justify-content:center;}
+.about-avatar-lg span{font-family:'Cormorant Garamond',serif;font-size:2rem;color:var(--gold);}
+.about-name-lg{font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:var(--cream);text-align:center;}
+.about-credential{font-size:0.58rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(201,168,76,0.55);text-align:center;}
+.about-gold-line{width:40px;height:1px;background:rgba(201,168,76,0.3);}
+.about-bio-item{display:flex;gap:1rem;align-items:flex-start;padding:1rem 0;border-bottom:1px solid rgba(201,168,76,0.1);}
+.about-bio-item:last-child{border-bottom:none;}
+.about-bio-dot{width:5px;height:5px;background:var(--gold);flex-shrink:0;margin-top:0.45rem;}
+.about-bio-text{font-size:0.74rem;color:var(--charcoal-light);line-height:1.8;}
+.services{background:var(--cream-dark);}
+.services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.5px;background:rgba(201,168,76,0.12);margin-top:3rem;}
+.service-card{background:var(--cream-dark);padding:2rem 1.75rem;cursor:pointer;transition:background 0.25s;position:relative;}
+.service-card:hover{background:var(--charcoal);}
+.service-card:hover .svc-name{color:var(--gold-light);}
+.service-card:hover .svc-desc{color:rgba(201,168,76,0.45);}
+.service-card:hover .svc-price{color:var(--gold);}
+.service-card:hover .svc-symbol{color:var(--gold);}
+.svc-symbol{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-style:italic;color:var(--gold-dark);margin-bottom:0.9rem;}
+.svc-name{font-family:'Cormorant Garamond',serif;font-size:1.15rem;color:var(--charcoal);margin-bottom:0.4rem;}
+.svc-desc{font-size:0.66rem;color:var(--warm-gray);line-height:1.7;margin-bottom:1rem;}
+.svc-price{font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold-dark);}
+.svc-add{margin-top:1rem;padding:0.4rem 0.85rem;background:transparent;border:1px solid rgba(201,168,76,0.3);color:var(--gold-dark);font-family:'Montserrat',sans-serif;font-size:0.58rem;letter-spacing:0.15em;text-transform:uppercase;cursor:pointer;transition:all 0.2s;}
+.service-card:hover .svc-add{border-color:rgba(201,168,76,0.5);color:var(--gold-light);}
+.svc-add:hover{background:var(--gold)!important;color:var(--charcoal)!important;border-color:var(--gold)!important;}
+.pricing{background:var(--white);}
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;margin-top:3rem;}
+.pricing-card{background:var(--cream);border:1px solid rgba(201,168,76,0.15);padding:2.25rem 2rem;position:relative;transition:transform 0.25s;}
+.pricing-card:hover{transform:translateY(-4px);}
+.pricing-card.featured{background:var(--charcoal);border-color:var(--gold);}
+.pricing-badge{position:absolute;top:-1px;left:50%;transform:translateX(-50%);font-size:0.56rem;letter-spacing:0.18em;text-transform:uppercase;padding:0.3rem 1.2rem;background:var(--gold);color:var(--charcoal);white-space:nowrap;}
+.pricing-tier{font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:0.85rem;}
+.pricing-price{font-family:'Cormorant Garamond',serif;font-size:2.75rem;font-weight:300;color:var(--charcoal);line-height:1;}
+.pricing-card.featured .pricing-price{color:var(--gold-light);}
+.pricing-price sup{font-size:1.1rem;vertical-align:super;}
+.pricing-period{font-size:0.62rem;color:var(--warm-gray);margin:0.4rem 0 1.5rem;padding-bottom:1.5rem;border-bottom:1px solid rgba(201,168,76,0.15);}
+.pricing-features{list-style:none;}
+.pricing-features li{font-size:0.7rem;color:var(--charcoal-light);padding:0.45rem 0;display:flex;align-items:flex-start;gap:0.7rem;border-bottom:1px solid rgba(201,168,76,0.08);}
+.pricing-card.featured .pricing-features li{color:rgba(250,247,242,0.65);border-color:rgba(201,168,76,0.1);}
+.pricing-features li::before{content:'';width:4px;height:4px;background:var(--gold);flex-shrink:0;margin-top:0.45rem;}
+.pricing-btn{width:100%;margin-top:1.75rem;padding:0.8rem;background:transparent;border:1px solid rgba(201,168,76,0.35);color:var(--charcoal);cursor:pointer;font-family:'Montserrat',sans-serif;font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;transition:all 0.25s;}
+.pricing-btn:hover{background:var(--gold);border-color:var(--gold);color:var(--charcoal);}
+.pricing-card.featured .pricing-btn{background:var(--gold);border-color:var(--gold);color:var(--charcoal);}
+.booking{background:var(--cream-dark);}
+.booking-inner{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start;}
+.booking-form{display:flex;flex-direction:column;gap:1.15rem;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.form-group{display:flex;flex-direction:column;gap:0.45rem;}
+.form-label{font-size:0.58rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--warm-gray);}
+.form-input,.form-select,.form-textarea{padding:0.7rem 0.9rem;border:1px solid rgba(201,168,76,0.2);background:var(--white);color:var(--charcoal);font-family:'Montserrat',sans-serif;font-size:0.75rem;outline:none;transition:border-color 0.2s;appearance:none;resize:none;}
+.form-input:focus,.form-select:focus,.form-textarea:focus{border-color:var(--gold);}
+.form-submit{padding:0.95rem;background:var(--charcoal);color:var(--gold-light);border:none;cursor:pointer;font-family:'Montserrat',sans-serif;font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;transition:background 0.25s;margin-top:0.25rem;}
+.form-submit:hover{background:var(--gold);color:var(--charcoal);}
+.value-item{display:flex;gap:0.9rem;align-items:flex-start;padding:1rem 0;border-bottom:1px solid rgba(201,168,76,0.1);}
+.value-item:last-child{border-bottom:none;}
+.value-dot{width:5px;height:5px;background:var(--gold);flex-shrink:0;margin-top:0.42rem;}
+.value-text{font-size:0.72rem;color:var(--charcoal-light);line-height:1.75;}
+.testimonials{background:var(--white);}
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;margin-top:3rem;}
+.testi-card{padding:1.75rem;border-top:2px solid rgba(201,168,76,0.25);}
+.testi-qmark{font-family:'Cormorant Garamond',serif;font-size:3.5rem;font-weight:300;color:var(--gold-light);line-height:0;padding-top:1.4rem;margin-bottom:0.9rem;}
+.testi-text{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:300;font-style:italic;color:var(--charcoal-light);line-height:1.7;margin-bottom:1.25rem;}
+.testi-name{font-size:0.62rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--charcoal);}
+.testi-detail{font-size:0.58rem;color:var(--gold-dark);margin-top:0.2rem;letter-spacing:0.06em;}
+footer{background:var(--charcoal);padding:3.5rem;display:grid;grid-template-columns:2fr 1fr 1fr;gap:3rem;}
+.footer-logo{font-family:'Cormorant Garamond',serif;font-size:1.4rem;color:var(--cream);margin-bottom:0.6rem;}
+.footer-logo span{color:var(--gold);}
+.footer-tagline{font-size:0.65rem;color:rgba(250,247,242,0.4);line-height:1.8;max-width:220px;}
+.footer-col h4{font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:0.9rem;}
+.footer-col a{display:block;font-size:0.7rem;color:rgba(250,247,242,0.45);text-decoration:none;margin-bottom:0.5rem;transition:color 0.2s;}
+.footer-col a:hover{color:var(--gold-light);}
+.footer-bottom{grid-column:1/-1;border-top:1px solid rgba(201,168,76,0.1);padding-top:1.5rem;display:flex;justify-content:space-between;}
+.footer-copy{font-size:0.6rem;color:rgba(250,247,242,0.3);letter-spacing:0.06em;}
+.modal-wrap{display:none;position:fixed;inset:0;z-index:200;background:rgba(26,24,20,0.8);align-items:center;justify-content:center;padding:2rem;}
+.modal-wrap.open{display:flex;}
+.modal-box{background:var(--white);max-width:420px;width:100%;padding:2.5rem;position:relative;}
+.modal-close{position:absolute;top:1rem;right:1rem;background:none;border:none;cursor:pointer;font-size:1.1rem;color:var(--warm-gray);}
+.modal-close:hover{color:var(--charcoal);}
+.modal-title{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:300;margin-bottom:0.4rem;}
+.modal-sub{font-size:0.7rem;color:var(--warm-gray);margin-bottom:1.5rem;}
+.cart-item-row{display:flex;justify-content:space-between;align-items:center;padding:0.55rem 0;border-bottom:1px solid rgba(201,168,76,0.1);font-size:0.72rem;}
+.cart-item-name{color:var(--charcoal);}
+.cart-item-price{font-family:'Cormorant Garamond',serif;font-size:1rem;}
+.cart-item-remove{background:none;border:none;cursor:pointer;color:var(--warm-gray);font-size:0.75rem;padding:0 0.25rem;}
+.cart-item-remove:hover{color:var(--charcoal);}
+.cart-total-row{display:flex;justify-content:space-between;align-items:baseline;padding:1rem 0 0;margin-top:0.5rem;}
+.cart-total-label{font-size:0.62rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--warm-gray);}
+.cart-total-val{font-family:'Cormorant Garamond',serif;font-size:1.6rem;}
+.announce{background:var(--charcoal);color:var(--gold-light);text-align:center;padding:0.55rem;font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;}
+</style>
+</head>
+<body>
+
+<div class="announce">Now booking for Summer 2025 — AP Exam Prep &amp; College Essay Intensive</div>
+
+<nav>
+  <a href="#" class="nav-logo">Lumi<span>è</span>re</a>
+  <div class="nav-links">
+    <a onclick="smoothTo('services')">Services</a>
+    <a onclick="smoothTo('about')">About</a>
+    <a onclick="smoothTo('pricing')">Rates</a>
+    <a onclick="smoothTo('booking')">Book</a>
+    <button class="cart-btn" onclick="openCart()">Cart <div class="cart-count" id="cartCount">0</div></button>
+    <button class="nav-cta" onclick="smoothTo('booking')">Book a Session</button>
+  </div>
+</nav>
+
+<section class="hero" style="padding:0;">
+  <div class="hero-left">
+    <div class="hero-eyebrow">Private Academic Tutoring</div>
+    <h1 class="hero-title">Your <em>strongest</em><br>essay.<br>Your best score.</h1>
+    <p class="hero-sub">Expert 1-on-1 tutoring in AP courses, essay writing, and college admissions — from a tutor who knows exactly what top schools are looking for.</p>
+    <div class="hero-actions">
+      <button class="btn-primary" onclick="smoothTo('booking')">Book a Free Consult</button>
+      <button class="btn-ghost" onclick="smoothTo('services')">View Services</button>
+    </div>
+    <div class="hero-stats">
+      <div><div class="stat-num">100%</div><div class="stat-label">AP Pass Rate</div></div>
+      <div><div class="stat-num">50+</div><div class="stat-label">Students Mentored</div></div>
+      <div><div class="stat-num">5</div><div class="stat-label">AP Subjects</div></div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-visual">
+      <div class="tutor-ring"><div class="tutor-initials">T</div></div>
+      <div class="tutor-title-block">
+        <div class="tutor-name-hero">Your Tutor</div>
+        <div class="tutor-creds-hero">AP · Essays · Admissions</div>
+      </div>
+      <div class="hero-divider"></div>
+      <div class="hero-tags">
+        <span class="hero-tag">AP World</span>
+        <span class="hero-tag">AP Lit</span>
+        <span class="hero-tag">AP Lang</span>
+        <span class="hero-tag">AP Art History</span>
+        <span class="hero-tag">Essays</span>
+        <span class="hero-tag">Admissions</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="about" id="about">
+  <div class="about-inner">
+    <div class="about-img">
+      <div class="about-avatar-lg"><span>T</span></div>
+      <div class="about-name-lg">Your Name Here</div>
+      <div class="about-credential">Expert Tutor</div>
+      <div class="about-gold-line"></div>
+      <div class="about-credential" style="font-size:0.55rem;line-height:1.8;color:rgba(201,168,76,0.4);text-align:center;max-width:180px;">AP World · AP Lit · AP Lang<br>AP Art History · Essay Writing<br>Homework Help · Admissions</div>
+    </div>
+    <div>
+      <div class="section-label">About</div>
+      <h2 class="section-title">A Tutor Who Has Been There</h2>
+      <p style="font-size:0.75rem;color:var(--warm-gray);line-height:1.9;margin-bottom:1.75rem;max-width:440px;">Dedicated to helping students not just pass their APs, but genuinely understand and love the material — from dissecting the narrative of history to crafting essays that make admissions officers stop and take notice.</p>
+      <div>
+        <div class="about-bio-item"><div class="about-bio-dot"></div><div class="about-bio-text">Deep expertise across AP World History, AP Literature, AP Language &amp; Composition, and AP Art History</div></div>
+        <div class="about-bio-item"><div class="about-bio-dot"></div><div class="about-bio-text">Specialised essay coaching — from in-class DBQs and FRQs to personal statements and college supplements</div></div>
+        <div class="about-bio-item"><div class="about-bio-dot"></div><div class="about-bio-text">Admissions guidance tailored to each student's strengths, story, and dream schools</div></div>
+        <div class="about-bio-item"><div class="about-bio-dot"></div><div class="about-bio-text">Homework help across all subject areas — patient, clear, and always student-paced</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="services" id="services">
+  <div class="section-label">What I Offer</div>
+  <h2 class="section-title">Services</h2>
+  <p class="section-sub">Each session is tailored to you — your exam date, your essay deadline, your specific gaps. No generic lesson plans.</p>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="svc-symbol">I</div>
+      <div class="svc-name">AP World History</div>
+      <div class="svc-desc">Period reviews, DBQ &amp; SAQ mastery, cause-and-effect analysis, and full exam strategy.</div>
+      <div class="svc-price">$65 / hr</div>
+      <button class="svc-add" onclick="addToCart('AP World History — 1 Session', 65)">Add to Cart</button>
+    </div>
+    <div class="service-card">
+      <div class="svc-symbol">◊</div>
+      <div class="svc-name">AP Literature</div>
+      <div class="svc-desc">Close reading, literary analysis, essay structure, and free-response technique for poetry and prose.</div>
+      <div class="svc-price">$65 / hr</div>
+      <button class="svc-add" onclick="addToCart('AP Literature — 1 Session', 65)">Add to Cart</button>
+    </div>
+    <div class="service-card">
+      <div class="svc-symbol">¶</div>
+      <div class="svc-name">AP Lang &amp; Comp</div>
+      <div class="svc-desc">Rhetorical analysis, argument essays, synthesis skills, and AP exam free-response coaching.</div>
+      <div class="svc-price">$65 / hr</div>
+      <button class="svc-add" onclick="addToCart('AP Lang & Comp — 1 Session', 65)">Add to Cart</button>
+    </div>
+    <div class="service-card">
+      <div class="svc-symbol">❧</div>
+      <div class="svc-name">AP Art History</div>
+      <div class="svc-desc">Visual analysis, contextual framing, comparison essays, and all 250 works studied efficiently.</div>
+      <div class="svc-price">$65 / hr</div>
+      <button class="svc-add" onclick="addToCart('AP Art History — 1 Session', 65)">Add to Cart</button>
+    </div>
+    <div class="service-card">
+      <div class="svc-symbol">✦</div>
+      <div class="svc-name">Essay Writing</div>
+      <div class="svc-desc">Thesis development, structure, voice, argumentation, and revision across all formats and levels.</div>
+      <div class="svc-price">$65 / hr</div>
+      <button class="svc-add" onclick="addToCart('Essay Writing — 1 Session', 65)">Add to Cart</button>
+    </div>
+    <div class="service-card">
+      <div class="svc-symbol">≋</div>
+      <div class="svc-name">Homework Help</div>
+      <div class="svc-desc">Flexible support across any subject — clarify concepts, work through assignments, build confidence.</div>
+      <div class="svc-price">$55 / hr</div>
+      <button class="svc-add" onclick="addToCart('Homework Help — 1 Session', 55)">Add to Cart</button>
+    </div>
+    <div class="service-card">
+      <div class="svc-symbol">◈</div>
+      <div class="svc-name">Admissions Guidance</div>
+      <div class="svc-desc">School list strategy, personal statement coaching, activity list, and supplement essays from first draft to final polish.</div>
+      <div class="svc-price">$70 / hr</div>
+      <button class="svc-add" onclick="addToCart('Admissions Guidance — 1 Session', 70)">Add to Cart</button>
+    </div>
+  </div>
+</section>
+
+<section class="pricing" id="pricing">
+  <div class="section-label">Packages</div>
+  <h2 class="section-title">Session Packages</h2>
+  <p class="section-sub">Save when you commit to a bundle — ideal for sustained AP prep or a full admissions cycle.</p>
+  <div class="pricing-grid">
+    <div class="pricing-card">
+      <div class="pricing-tier">Single Session</div>
+      <div class="pricing-price"><sup>$</sup>65</div>
+      <div class="pricing-period">per hour · pay as you go</div>
+      <ul class="pricing-features">
+        <li>Any AP subject or essay</li>
+        <li>Flexible scheduling</li>
+        <li>Session notes &amp; resources</li>
+        <li>Follow-up email support</li>
+      </ul>
+      <button class="pricing-btn" onclick="addToCart('Single Session', 65)">Book a Session</button>
+    </div>
+    <div class="pricing-card featured">
+      <div class="pricing-badge">Best Value</div>
+      <div class="pricing-tier">5-Session Bundle</div>
+      <div class="pricing-price"><sup>$</sup>295</div>
+      <div class="pricing-period">$59/hr · save $30</div>
+      <ul class="pricing-features">
+        <li>5 hours across any subjects</li>
+        <li>Priority scheduling</li>
+        <li>Personalized study plan</li>
+        <li>Session notes &amp; resources</li>
+        <li>Between-session check-ins</li>
+      </ul>
+      <button class="pricing-btn" onclick="addToCart('5-Session Bundle', 295)">Buy Bundle</button>
+    </div>
+    <div class="pricing-card">
+      <div class="pricing-tier">10-Session Bundle</div>
+      <div class="pricing-price"><sup>$</sup>550</div>
+      <div class="pricing-period">$55/hr · save $100</div>
+      <ul class="pricing-features">
+        <li>10 hours across any subjects</li>
+        <li>Priority scheduling</li>
+        <li>Full study plan + milestones</li>
+        <li>Essay review included</li>
+        <li>Progress report for parents</li>
+        <li>Text support between sessions</li>
+      </ul>
+      <button class="pricing-btn" onclick="addToCart('10-Session Bundle', 550)">Buy Bundle</button>
+    </div>
+  </div>
+</section>
+
+<section class="booking" id="booking">
+  <div class="booking-inner">
+    <div>
+      <div class="section-label">Get Started</div>
+      <h2 class="section-title">Book Your First Session</h2>
+      <p style="font-size:0.75rem;color:var(--warm-gray);line-height:1.9;margin:1.25rem 0 1.75rem;">Start with a free 20-minute consultation. We'll talk through your goals, your timeline, and what success looks like for you.</p>
+      <div>
+        <div class="value-item"><div class="value-dot"></div><div class="value-text">Free 20-minute intro call — no commitment required</div></div>
+        <div class="value-item"><div class="value-dot"></div><div class="value-text">Online sessions via Zoom or Google Meet — flexible scheduling</div></div>
+        <div class="value-item"><div class="value-dot"></div><div class="value-text">Evenings and weekends available</div></div>
+        <div class="value-item"><div class="value-dot"></div><div class="value-text">Session recordings and notes shared after every meeting</div></div>
+        <div class="value-item"><div class="value-dot"></div><div class="value-text">Parents welcome to observe or receive progress updates</div></div>
+      </div>
+    </div>
+    <form class="booking-form" onsubmit="submitBooking(event)">
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Student First Name</label>
+          <input class="form-input" type="text" placeholder="Emma" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Last Name</label>
+          <input class="form-input" type="text" placeholder="Johnson" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Email</label>
+        <input class="form-input" type="email" placeholder="emma@example.com" required>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Primary Area of Focus</label>
+        <select class="form-select">
+          <option>AP World History</option>
+          <option>AP Literature</option>
+          <option>AP Lang &amp; Composition</option>
+          <option>AP Art History</option>
+          <option>Essay Writing</option>
+          <option>Homework Help</option>
+          <option>Admissions Guidance</option>
+        </select>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Grade Level</label>
+          <select class="form-select">
+            <option>9th Grade</option>
+            <option>10th Grade</option>
+            <option>11th Grade</option>
+            <option>12th Grade</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">How Did You Hear?</label>
+          <select class="form-select">
+            <option>Word of Mouth</option>
+            <option>Google</option>
+            <option>Social Media</option>
+            <option>School Recommendation</option>
+            <option>Other</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Anything else I should know?</label>
+        <textarea class="form-textarea" rows="3" placeholder="Exam date, current grade, specific goals..."></textarea>
+      </div>
+      <button type="submit" class="form-submit">Request Free Consultation &#8594;</button>
+    </form>
+  </div>
+</section>
+
+<section class="testimonials">
+  <div class="section-label">Kind Words</div>
+  <h2 class="section-title">What Students Say</h2>
+  <div class="testi-grid">
+    <div class="testi-card">
+      <div class="testi-qmark">"</div>
+      <p class="testi-text">I went from a 2 to a 4 on AP World after just six sessions. The way complex historical patterns were broken down made everything click.</p>
+      <div class="testi-name">Alex R.</div>
+      <div class="testi-detail">AP World History · Score improved 2 points</div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-qmark">"</div>
+      <p class="testi-text">My personal statement went from generic to genuinely me. The admissions coaching was thoughtful and thorough — I got into my first-choice school.</p>
+      <div class="testi-name">Maya T.</div>
+      <div class="testi-detail">Admissions Guidance · Accepted ED</div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-qmark">"</div>
+      <p class="testi-text">AP Lang was my weakest subject and I dreaded the FRQs. After a few sessions on rhetorical analysis, I actually started to enjoy it. Scored a 4.</p>
+      <div class="testi-name">Jordan M.</div>
+      <div class="testi-detail">AP Lang &amp; Comp · Scored a 4</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div>
+    <div class="footer-logo">Lumi<span>è</span>re</div>
+    <p class="footer-tagline">Expert private tutoring in AP courses, essay writing, and college admissions.</p>
+  </div>
+  <div class="footer-col">
+    <h4>Services</h4>
+    <a href="#">AP World History</a>
+    <a href="#">AP Literature</a>
+    <a href="#">AP Lang &amp; Comp</a>
+    <a href="#">AP Art History</a>
+    <a href="#">Essay Writing</a>
+    <a href="#">Homework Help</a>
+    <a href="#">Admissions Guidance</a>
+  </div>
+  <div class="footer-col">
+    <h4>Connect</h4>
+    <a href="#">Book a Session</a>
+    <a href="#">Free Consultation</a>
+    <a href="#">Email Me</a>
+    <a href="#">FAQ</a>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-copy">&copy; 2026 Lumière Tutoring. All rights reserved.</span>
+    <span class="footer-copy">Serving students nationwide, online.</span>
+  </div>
+</footer>
+
+<div class="modal-wrap" id="cartModal">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeCart()">&#x2715;</button>
+    <h3 class="modal-title">Your Cart</h3>
+    <p class="modal-sub">Review your selected sessions and packages.</p>
+    <div id="cartItems"></div>
+    <div class="cart-total-row">
+      <span class="cart-total-label">Total</span>
+      <span class="cart-total-val" id="cartTotal">$0</span>
+    </div>
+    <button class="form-submit" style="width:100%;margin-top:1rem;" onclick="checkout()">Proceed to Checkout &#8594;</button>
+  </div>
+</div>
+
+<div class="modal-wrap" id="successModal">
+  <div class="modal-box" style="text-align:center;">
+    <button class="modal-close" onclick="document.getElementById('successModal').classList.remove('open')">&#x2715;</button>
+    <div style="font-size:1.75rem;color:var(--gold);margin-bottom:0.75rem;">&#x2726;</div>
+    <h3 class="modal-title" id="successTitle">Done!</h3>
+    <p class="modal-sub" id="successMsg">We'll be in touch shortly.</p>
+  </div>
+</div>
+
+<script>
+let cart=[];
+function smoothTo(id){document.getElementById(id).scrollIntoView({behavior:'smooth'});}
+function addToCart(name,price){cart.push({name,price});document.getElementById('cartCount').textContent=cart.length;showSuccess('Added to cart','"'+name+'" has been added. View your cart when ready.');}
+function renderCart(){const el=document.getElementById('cartItems');el.innerHTML='';let total=0;if(!cart.length){el.innerHTML='<p style="font-size:0.75rem;color:var(--warm-gray);padding:1rem 0;">Your cart is empty.</p>';}else{cart.forEach((item,i)=>{total+=item.price;const row=document.createElement('div');row.className='cart-item-row';row.innerHTML='<span class="cart-item-name">'+item.name+'</span><span style="display:flex;align-items:center;gap:0.5rem;"><span class="cart-item-price">$'+item.price+'</span><button class="cart-item-remove" onclick="removeItem('+i+')">&#x2715;</button></span>';el.appendChild(row);});}document.getElementById('cartTotal').textContent='$'+total.toLocaleString();}
+function removeItem(i){cart.splice(i,1);document.getElementById('cartCount').textContent=cart.length;renderCart();}
+function openCart(){renderCart();document.getElementById('cartModal').classList.add('open');}
+function closeCart(){document.getElementById('cartModal').classList.remove('open');}
+function checkout(){closeCart();cart=[];document.getElementById('cartCount').textContent='0';showSuccess('Booking confirmed!','Thank you! You will receive a confirmation email shortly with scheduling details.');}
+function submitBooking(e){e.preventDefault();showSuccess('Request received!','Thank you! I will reach out within 24 hours to schedule your free consultation.');e.target.reset();}
+function showSuccess(title,msg){document.getElementById('successTitle').textContent=title;document.getElementById('successMsg').textContent=msg;document.getElementById('successModal').classList.add('open');}
+document.querySelectorAll('.modal-wrap').forEach(el=>{el.addEventListener('click',function(e){if(e.target===this)this.classList.remove('open');});});
+</script>
+</body>
+</html>
