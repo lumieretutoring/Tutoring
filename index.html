@@ -6,7 +6,7 @@
 <title>Terra Muhammad — Private Tutoring</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
-<script src="https://js.stripe.com/v3/"></script>
+
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 :root{
@@ -183,8 +183,7 @@ footer{background:var(--charcoal);padding:3.5rem;display:grid;grid-template-colu
 .checkout-btn{width:100%;padding:0.95rem;background:var(--charcoal);color:var(--gold-light);border:none;cursor:pointer;font-family:'Montserrat',sans-serif;font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;transition:background 0.25s;}
 .checkout-btn:hover{background:var(--gold);color:var(--charcoal);}
 .checkout-btn:disabled{opacity:0.5;cursor:not-allowed;}
-.stripe-note{font-size:0.56rem;color:var(--warm-gray);text-align:center;margin-top:0.75rem;letter-spacing:0.05em;}
-.stripe-note span{color:var(--gold-dark);}
+.payment-note{font-size:0.56rem;color:var(--warm-gray);text-align:center;margin-top:0.75rem;letter-spacing:0.05em;}
 
 /* ── MODALS ── */
 .modal-overlay{display:none;position:fixed;inset:0;z-index:400;background:rgba(26,24,20,0.75);backdrop-filter:blur(4px);align-items:center;justify-content:center;padding:2rem;}
@@ -197,19 +196,21 @@ footer{background:var(--charcoal);padding:3.5rem;display:grid;grid-template-colu
 .modal-title{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:300;margin-bottom:0.35rem;}
 .modal-sub{font-size:0.7rem;color:var(--warm-gray);line-height:1.75;}
 
-/* ── STRIPE PAYMENT MODAL ── */
+/* ── PAYMENT MODAL ── */
 #paymentModal .modal-box{max-width:500px;}
 .payment-item-list{margin:1.25rem 0;border-top:1px solid rgba(201,168,76,0.15);}
 .payment-item-row{display:flex;justify-content:space-between;padding:0.6rem 0;border-bottom:1px solid rgba(201,168,76,0.1);font-size:0.72rem;color:var(--charcoal-light);}
 .payment-total-row{display:flex;justify-content:space-between;align-items:baseline;padding:0.85rem 0 1.25rem;}
 .payment-total-label{font-size:0.6rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--warm-gray);}
 .payment-total-val{font-family:'Cormorant Garamond',serif;font-size:1.5rem;}
-#card-element{padding:0.75rem 0.9rem;border:1px solid rgba(201,168,76,0.25);background:var(--cream);margin-bottom:0.75rem;min-height:44px;}
-#card-errors{font-size:0.65rem;color:#c0392b;margin-bottom:0.75rem;min-height:1.2em;}
-.pay-btn{width:100%;padding:0.92rem;background:var(--charcoal);color:var(--gold-light);border:none;cursor:pointer;font-family:'Montserrat',sans-serif;font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;transition:background 0.25s;}
-.pay-btn:hover{background:var(--gold);color:var(--charcoal);}
-.pay-btn:disabled{opacity:0.5;cursor:not-allowed;}
-.pay-secure{font-size:0.56rem;color:var(--warm-gray);text-align:center;margin-top:0.65rem;}
+.pay-methods{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.25rem;}
+.pay-method{border:1px solid rgba(201,168,76,0.2);padding:1.4rem 1rem;text-align:center;cursor:pointer;transition:all 0.25s;text-decoration:none;display:flex;flex-direction:column;gap:0.35rem;align-items:center;}
+.pay-method:hover{border-color:var(--gold);background:rgba(201,168,76,0.04);}
+.pay-method-logo{font-size:0.56rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--warm-gray);}
+.pay-method-handle{font-family:'Cormorant Garamond',serif;font-size:1.25rem;color:var(--charcoal);}
+.pay-method-handle span{color:var(--gold-dark);}
+.pay-method-arrow{font-size:0.6rem;color:var(--gold);margin-top:0.2rem;letter-spacing:0.12em;text-transform:uppercase;}
+.pay-instructions{font-size:0.65rem;color:var(--warm-gray);line-height:1.85;text-align:center;padding:1rem;background:var(--cream);border:1px solid rgba(201,168,76,0.12);}
 
 /* ── SPINNER ── */
 .spinner{display:inline-block;width:14px;height:14px;border:2px solid rgba(201,168,76,0.3);border-top-color:var(--gold);border-radius:50%;animation:spin 0.7s linear infinite;vertical-align:middle;margin-left:0.5rem;}
@@ -236,16 +237,16 @@ footer{background:var(--charcoal);padding:3.5rem;display:grid;grid-template-colu
 <section class="hero" style="padding:0;">
   <div class="hero-left">
     <div class="hero-eyebrow">Private Academic Tutoring</div>
-    <h1 class="hero-title">Your <em>strongest</em><br>essay.<br>Your best score.</h1>
-    <p class="hero-sub">Expert 1-on-1 tutoring in AP courses, essay writing, and college admissions — from a tutor who knows exactly what top schools are looking for.</p>
+    <h1 class="hero-title">Your <em>strongest</em><br>essay.<br>Your highest score.</h1>
+    <p class="hero-sub">Expert 1-on-1 tutoring in AP courses, essay writing, and college admissions — from a tutor who knows exactly what your perfect fit schools are looking for.</p>
     <div class="hero-actions">
       <button class="btn-primary" onclick="window.open('https://koalendar.com/e/meet-with-terra','_blank')">Book a Free Consult</button>
       <button class="btn-ghost" onclick="document.getElementById('services').scrollIntoView({behavior:'smooth'})">View Services</button>
     </div>
     <div class="hero-stats">
       <div><div class="stat-num">100%</div><div class="stat-label">AP Pass Rate</div></div>
-      <div><div class="stat-num">50+</div><div class="stat-label">Students Mentored</div></div>
-      <div><div class="stat-num">6</div><div class="stat-label">AP Subjects</div></div>
+      <div><div class="stat-num">700+</div><div class="stat-label">Students Mentored</div></div>
+      <div><div class="stat-num">5</div><div class="stat-label">AP Subjects</div></div>
     </div>
   </div>
   <div class="hero-right">
@@ -281,13 +282,13 @@ footer{background:var(--charcoal);padding:3.5rem;display:grid;grid-template-colu
     </div>
     <div>
       <div class="section-label">About</div>
-      <h2 class="section-title">A Tutor Who Has Been There</h2>
+      <h2 class="section-title">A Tutor with practical experience and a width breadth of knowledge</h2>
       <p style="font-size:0.74rem;color:var(--warm-gray);line-height:1.95;margin-bottom:1.75rem;max-width:440px;">Dedicated to helping students not just pass their APs, but genuinely understand and love the material — from dissecting the grand narrative of history to crafting essays that make admissions officers stop and take notice.</p>
       <div>
         <div class="about-bio-item"><div class="about-bio-dot"></div><div class="about-bio-text">Deep expertise in AP World History, AP European History, AP Literature, AP Language &amp; Composition, and AP Art History</div></div>
         <div class="about-bio-item"><div class="about-bio-dot"></div><div class="about-bio-text">Specialized essay coaching — from DBQs and FRQs to personal statements and college supplements</div></div>
         <div class="about-bio-item"><div class="about-bio-dot"></div><div class="about-bio-text">College admissions guidance tailored to each student's unique story and dream schools</div></div>
-        <div class="about-bio-item"><div class="about-bio-dot"></div><div class="about-bio-text">Homework help across subjects — patient, clear, always student-paced</div></div>
+        <div class="about-bio-item"><div class="about-bio-dot"></div><div class="about-bio-text">Homework, thesis, and dissertation help across subjects — patient, clear, always student-paced</div></div>
       </div>
     </div>
   </div>
@@ -552,7 +553,7 @@ footer{background:var(--charcoal);padding:3.5rem;display:grid;grid-template-colu
       <span class="cart-total-val" id="cartTotal">$0</span>
     </div>
     <button class="checkout-btn" id="checkoutBtn" onclick="openPayment()" disabled>Checkout &#8594;</button>
-    <p class="stripe-note">Secure payment via <span>Stripe</span> &nbsp;&#8901;&nbsp; SSL encrypted</p>
+    <p class="payment-note">Pay via Venmo or Cash App after checkout</p>
   </div>
 </div>
 
@@ -560,17 +561,26 @@ footer{background:var(--charcoal);padding:3.5rem;display:grid;grid-template-colu
 <div class="modal-overlay" id="paymentModal">
   <div class="modal-box">
     <button class="modal-close" onclick="closePayment()">&#x2715;</button>
-    <div class="modal-title">Complete Payment</div>
-    <p style="font-size:0.68rem;color:var(--warm-gray);margin-bottom:0.5rem;">Review your order and enter your card details below.</p>
+    <div class="modal-title">Complete Your Order</div>
+    <p style="font-size:0.68rem;color:var(--warm-gray);margin-bottom:0.5rem;">Review your order, then tap your preferred payment method below.</p>
     <div class="payment-item-list" id="paymentItemList"></div>
     <div class="payment-total-row">
       <span class="payment-total-label">Total Due</span>
       <span class="payment-total-val" id="paymentTotal">$0</span>
     </div>
-    <div id="card-element"></div>
-    <div id="card-errors"></div>
-    <button class="pay-btn" id="payBtn" onclick="processPayment()">Pay Now &#8594;</button>
-    <p class="pay-secure">&#128274; &nbsp;Your payment is encrypted and secure via Stripe</p>
+    <div class="pay-methods">
+      <a class="pay-method" id="venmoBtn" href="https://venmo.com/TerraTutoring" target="_blank" onclick="confirmPayment('Venmo')">
+        <div class="pay-method-logo">Venmo</div>
+        <div class="pay-method-handle"><span>@</span>TerraTutoring</div>
+        <div class="pay-method-arrow">Open Venmo &#8594;</div>
+      </a>
+      <a class="pay-method" id="cashappBtn" href="https://cash.app/$vellichors" target="_blank" onclick="confirmPayment('Cash App')">
+        <div class="pay-method-logo">Cash App</div>
+        <div class="pay-method-handle"><span>$</span>vellichors</div>
+        <div class="pay-method-arrow">Open Cash App &#8594;</div>
+      </a>
+    </div>
+    <div class="pay-instructions">Include your name and subject in the payment note.<br>Terra will confirm your booking within 24 hours.</div>
   </div>
 </div>
 
@@ -641,32 +651,7 @@ function closeCart() {
   document.getElementById('cartDrawer').classList.remove('open');
 }
 
-// ── STRIPE PAYMENT ──
-// NOTE: Replace 'pk_test_...' with your real Stripe publishable key from dashboard.stripe.com
-const STRIPE_PK = 'pk_test_51OExampleKeyReplaceWithYourRealStripePublishableKey00';
-let stripe, cardElement;
-
-function initStripe() {
-  try {
-    stripe = Stripe(STRIPE_PK);
-    const elements = stripe.elements({
-      fonts: [{ cssSrc: 'https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap' }]
-    });
-    cardElement = elements.create('card', {
-      style: {
-        base: { fontFamily: 'Montserrat, sans-serif', fontSize: '14px', color: '#1A1814', '::placeholder': { color: '#8C8680' } },
-        invalid: { color: '#c0392b' }
-      }
-    });
-    cardElement.mount('#card-element');
-    cardElement.on('change', e => {
-      document.getElementById('card-errors').textContent = e.error ? e.error.message : '';
-    });
-  } catch(e) {
-    console.warn('Stripe init — replace with your real publishable key:', e.message);
-  }
-}
-
+// ── PAYMENT ──
 function openPayment() {
   closeCart();
   const listEl = document.getElementById('paymentItemList');
@@ -681,47 +666,23 @@ function openPayment() {
     listEl.appendChild(row);
   });
   totalEl.textContent = '$' + total.toLocaleString();
+  // Update Venmo link with amount
+  document.getElementById('venmoBtn').href = `https://venmo.com/TerraTutoring?txn=pay&amount=${total}&note=Tutoring+Session`;
+  document.getElementById('cashappBtn').href = `https://cash.app/$vellichors/${total}`;
   document.getElementById('paymentModal').classList.add('open');
-  if (!stripe) initStripe();
 }
 
 function closePayment() {
   document.getElementById('paymentModal').classList.remove('open');
 }
 
-async function processPayment() {
-  const btn = document.getElementById('payBtn');
-  const errEl = document.getElementById('card-errors');
-  errEl.textContent = '';
-
-  if (!stripe || !cardElement) {
-    // Demo mode — show what would happen with real key
-    showSuccess('Setup Required', 'Add your Stripe publishable key (from dashboard.stripe.com) to enable live payments. Everything else is ready to go!');
-    closePayment();
-    return;
-  }
-
-  btn.disabled = true;
-  btn.innerHTML = 'Processing <span class="spinner"></span>';
-
-  try {
-    const total = cart.reduce((s, i) => s + i.price, 0);
-    // In production, call YOUR backend to create a PaymentIntent and return client_secret
-    // const res = await fetch('/create-payment-intent', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ amount: total * 100 }) });
-    // const { clientSecret } = await res.json();
-    // const result = await stripe.confirmCardPayment(clientSecret, { payment_method: { card: cardElement } });
-
-    // DEMO: simulate success after 1.5s
-    await new Promise(r => setTimeout(r, 1500));
+function confirmPayment(method) {
+  setTimeout(() => {
     closePayment();
     cart = [];
     renderCart();
-    showSuccess('Payment Confirmed!', 'Thank you! Your booking is confirmed. Terra will reach out within 24 hours to schedule your first session.');
-  } catch(err) {
-    errEl.textContent = err.message || 'Payment failed. Please try again.';
-    btn.disabled = false;
-    btn.innerHTML = 'Pay Now &#8594;';
-  }
+    showSuccess('Almost done!', `Complete your $${document.getElementById('paymentTotal').textContent.replace('$','')} payment in ${method}. Include your name and subject in the note — Terra will confirm your booking within 24 hours.`);
+  }, 300);
 }
 
 // ── FORMSPREE CONTACT FORM ──
